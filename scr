@@ -1,0 +1,13 @@
+Easter-Crime/
+│
+├── index.html        <-- landingssiden din
+├── README.md         <-- oppgavebeskrivelse
+└── src/              <-- kodecaset
+    ├── Program.cs
+    ├── Controllers/
+    │   └── OrderController.cs
+    ├── Services/
+    │   ├── PaymentService.cs
+    │   └── DiscountService.cs
+    └── Models/
+        └── User.cs
