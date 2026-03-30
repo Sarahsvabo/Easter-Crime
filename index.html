@@ -125,7 +125,7 @@
 </head>
 <body>
 
-    <h1>🐣 Påskekrim: Den forsvunne deployen!</h1>
+    <h1>🐣 Påskekrim: Den ødeleggende deployen!</h1>
 
     <div class="intro">
         <strong>📟 VARSEL.</strong><br>
@@ -260,7 +260,7 @@
         function checkAnswer() {
             const input = document.getElementById("answer").value.toLowerCase();
 
-            if (input.includes("role") && input.includes("==")) found.role = true;
+            if (input.includes("role")) found.role = true;
             if (input.includes("crypto")) found.crypto = true;
 
             document.getElementById("answer").value = "";
@@ -269,7 +269,7 @@
             if (found.role && found.crypto) {
                 document.getElementById("result").innerHTML =
                     "<br>🎉 Du fant begge feilene! Bra jobbet.<br><br>" +
-                    "<a href='https://DERES-SØKNADSSKJEMA.no'>🔓 Gå videre til søknadsskjemaet →</a>";
+                    "<a href='https://jobs.smartrecruiters.com/SopraSteria1/744000099168595-senior-net-utvikler?trid=8b7e5138-3167-4188-9428-49aceeb7db40'>🔓 Gå videre til søknadsskjemaet →</a>";
             } else if (found.role || found.crypto) {
                 document.getElementById("result").innerText = "Bra! Det er én feil igjen 🔍";
             } else {
