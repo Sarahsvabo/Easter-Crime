@@ -4,64 +4,284 @@
     <meta charset="UTF-8">
     <title>Påskekrim for utviklere 🐣</title>
     <style>
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial;
-            max-width: 600px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #fffdf5;
+            color: #222;
+            max-width: 1200px;
             margin: 50px auto;
+            padding: 0 20px 60px;
+            line-height: 1.7;
+        }
+
+        h1 { font-size: 2em; margin-bottom: 0.2em; }
+        h2 { margin-top: 2em; font-size: 1.2em; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .intro {
+            background: #fff3cd;
+            border-left: 4px solid #f0a500;
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .code-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 640px) {
+            .code-grid { grid-template-columns: 1fr; }
+        }
+
+        .code-block {
+            background: #1e1e2e;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.82em;
+        }
+
+        .code-block .filename {
+            background: #313244;
+            color: #cdd6f4;
+            padding: 6px 14px;
+            font-family: monospace;
+            font-size: 0.9em;
+            letter-spacing: 0.02em;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 14px;
+            overflow-x: auto;
             line-height: 1.6;
         }
-        input, button {
-            padding: 10px;
-            margin-top: 10px;
-            width: 100%;
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            color: #cdd6f4;
         }
-        #result {
-            margin-top: 20px;
+
+        /* Syntax colours (Catppuccin-ish) */
+        .kw  { color: #cba6f7; } /* keyword */
+        .tp  { color: #89b4fa; } /* type */
+        .st  { color: #a6e3a1; } /* string */
+        .cm  { color: #6c7086; font-style: italic; } /* comment */
+        .nm  { color: #fab387; } /* number/literal */
+        .fn  { color: #89dceb; } /* function/method */
+        .at  { color: #f38ba8; } /* attribute / annotation */
+        .op  { color: #f9e2af; } /* operator / punctuation accent */
+
+        .answer-section {
+            margin-top: 32px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .answer-section h3 { margin-top: 0; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 12px 28px;
+            font-size: 1em;
+            background: #f0a500;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
             font-weight: bold;
         }
+
+        button:hover { background: #d4920a; }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.05em;
+            font-weight: bold;
+        }
+
+        #result a {
+            color: #2a7ae2;
+            text-decoration: underline;
+        }
+
+        .hint { color: #888; font-size: 0.9em; margin-top: 8px; }
     </style>
 </head>
 <body>
 
-    <h1>🐣 Påskekrim: Den forsvunne deployen</h1>
+    <h1>🐣 Påskekrim: Den forsvunne deployen!</h1>
 
-    <p>
-        Produksjon er nede. Noe gikk galt i siste deploy.
-    </p>
+    <div class="intro">
+        <strong>📟 VARSEL.</strong><br>
+        Klokken 08:00 på fredag gikk den siste deployen ut. Siden da har mange ordre feilet med 500 Internal Server Error. I tillegg er det feil med rabattordningen.<br><br>
+        Teamet er på påskeferie. Du er eneste utvikler tilgjengelig.<br><br>
+        <strong>Klarer du å finne feilene i koden og redde påsken? 🐣</strong>
+    </div>
 
-    <p>
-        Klarer du finne feilene i koden?
-    </p>
+    <h2>🔍 Kildekoden — les nøye</h2>
 
-    <p>
-        👉 <a href="https://github.com/sarahsvabo/">Se caset her</a>
-    </p>
+    <div class="code-grid">
 
-    <h3>Hva er feilene?</h3>
+        <div class="code-block">
+            <div class="filename">Models/User.cs</div>
+            <pre><code><span class="kw">namespace</span> EasterCrime.Models
+{
+    <span class="kw">public class</span> <span class="tp">User</span>
+    {
+        <span class="kw">public</span> <span class="tp">string</span> Role { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="st">"User"</span>;
+        <span class="kw">public</span> <span class="tp">decimal</span> Amount { <span class="kw">get</span>; <span class="kw">set</span>; }
+        <span class="kw">public</span> <span class="tp">string</span> Method { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="st">"CreditCard"</span>;
+    }
+}</code></pre>
+        </div>
 
-    <input id="answer" placeholder="Skriv kort hva som er galt..." />
-    <button onclick="checkAnswer()">Sjekk svar</button>
+        <div class="code-block">
+            <div class="filename">Controllers/OrderController.cs</div>
+            <pre><code><span class="kw">namespace</span> EasterCrime.Controllers
+{
+    [<span class="at">ApiController</span>]
+    [<span class="at">Route</span>(<span class="st">"[controller]"</span>)]
+    <span class="kw">public class</span> <span class="tp">OrderController</span> : <span class="tp">ControllerBase</span>
+    {
+        <span class="kw">private readonly</span> <span class="tp">PaymentService</span> _paymentService;
+        <span class="kw">private readonly</span> <span class="tp">DiscountService</span> _discountService;
 
-    <div id="result"></div>
+        <span class="kw">public</span> <span class="fn">OrderController</span>(
+            <span class="tp">PaymentService</span> paymentService,
+            <span class="tp">DiscountService</span> discountService)
+        {
+            _paymentService = paymentService;
+            _discountService = discountService;
+        }
+
+        [<span class="at">HttpPost</span>]
+        <span class="kw">public</span> <span class="tp">IActionResult</span> <span class="fn">CreateOrder</span>(
+            [<span class="at">FromBody</span>] <span class="tp">User</span> user)
+        {
+            <span class="kw">var</span> discounted = _discountService
+                .<span class="fn">ApplyDiscount</span>(user.Role, user.Amount);
+
+            <span class="kw">var</span> paid = _paymentService
+                .<span class="fn">ProcessPayment</span>(user.Method, discounted);
+
+            <span class="kw">if</span> (!paid)
+            {
+                <span class="kw">return</span> <span class="fn">StatusCode</span>(<span class="nm">500</span>, <span class="st">"Payment failed!"</span>);
+            }
+
+            <span class="kw">return</span> <span class="fn">Ok</span>(<span class="kw">new</span> {
+                amount = discounted,
+                status = <span class="st">"success"</span>
+            });
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-block">
+            <div class="filename">Services/DiscountService.cs</div>
+            <pre><code><span class="kw">namespace</span> EasterCrime.Services
+{
+    <span class="kw">public class</span> <span class="tp">DiscountService</span>
+    {
+        <span class="kw">public</span> <span class="tp">decimal</span> <span class="fn">ApplyDiscount</span>(
+            <span class="tp">string</span> role, <span class="tp">decimal</span> amount)
+        {
+            <span class="kw">if</span> (role <span class="op">=</span> <span class="st">"Admin"</span>)
+            {
+                <span class="cm">// 50% discount for admins</span>
+                <span class="kw">return</span> amount * <span class="nm">0.5m</span>;
+            }
+
+            <span class="kw">return</span> amount;
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-block">
+            <div class="filename">Services/PaymentService.cs</div>
+            <pre><code><span class="kw">namespace</span> EasterCrime.Services
+{
+    <span class="kw">public class</span> <span class="tp">PaymentService</span>
+    {
+        <span class="kw">public</span> <span class="tp">bool</span> <span class="fn">ProcessPayment</span>(
+            <span class="tp">string</span> method, <span class="tp">decimal</span> amount)
+        {
+            <span class="kw">if</span> (method == <span class="st">"crypto"</span>)
+            {
+                <span class="kw">return false</span>;
+            }
+
+            <span class="kw">return true</span>;
+        }
+    }
+}</code></pre>
+        </div>
+
+    </div>
+
+    <div class="answer-section">
+        <h3>🕵️ Hva er feilen?</h3>
+        <p>Beskriv kort hva som er galt i koden og hvorfor det fører til feil.</p>
+        <input type="text" id="answer" placeholder="Skriv svaret ditt her..." />
+        <p class="hint">Tips: Det er <strong>to</strong> feil i koden. Beskriv begge for å komme videre.</p>
+        <button onclick="checkAnswer()">Sjekk svar 🔍</button>
+        <div id="bugs-found" style="margin-top:16px; font-size:0.95em;"></div>
+        <div id="result"></div>
+    </div>
 
     <script>
+        const found = { role: false, crypto: false };
+
+        function updateBugStatus() {
+            const el = document.getElementById("bugs-found");
+            const r = found.role   ? "✅ Bug 1: <code>role = \"Admin\"</code> (tilordning i stedet for ==)" : "❌ Bug 1: ikke funnet ennå";
+            const c = found.crypto ? "✅ Bug 2: <code>crypto</code>-betalinger feiler alltid"              : "❌ Bug 2: ikke funnet ennå";
+            el.innerHTML = `<strong>Funn så langt:</strong><br>${r}<br>${c}`;
+        }
+
         function checkAnswer() {
             const input = document.getElementById("answer").value.toLowerCase();
 
-            if (
-                input.includes("role") &&
-                input.includes("=") &&
-                input.includes("environment") &&
-                input.includes("strategy")
-            ) {
+            if (input.includes("role") && input.includes("==")) found.role = true;
+            if (input.includes("crypto")) found.crypto = true;
+
+            document.getElementById("answer").value = "";
+            updateBugStatus();
+
+            if (found.role && found.crypto) {
                 document.getElementById("result").innerHTML =
-                    "🎉 Riktig! Du fant det.<br><br>" +
-                    "<a href='https://DERES-SØKNADSSKJEMA.no'>🔓 Gå videre til neste steg</a>";
+                    "<br>🎉 Du fant begge feilene! Bra jobbet.<br><br>" +
+                    "<a href='https://DERES-SØKNADSSKJEMA.no'>🔓 Gå videre til søknadsskjemaet →</a>";
+            } else if (found.role || found.crypto) {
+                document.getElementById("result").innerText = "Bra! Det er én feil igjen 🔍";
             } else {
-                document.getElementById("result").innerText =
-                    "Hmm... ikke helt der ennå. Prøv igjen 🐣";
+                document.getElementById("result").innerText = "Ikke helt der ennå. Les koden én gang til 🐣";
             }
         }
+
+        document.getElementById("answer").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") checkAnswer();
+        });
+
+        updateBugStatus();
     </script>
 
 </body>
